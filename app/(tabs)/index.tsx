@@ -10,18 +10,20 @@ export default function TabOneScreen() {
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-      function signUp() {
-        const auth = getAuth(app);
 
-        createUserWithEmailAndPassword(
-            auth,
-            email,
-            pass
-        )
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-            
-    }
+
+  function signUp() {
+    const auth = getAuth(app);
+
+    createUserWithEmailAndPassword(
+        auth,
+        email,
+        pass
+    )
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+        
+}
 
   return (
     <View style={styles.container}>
