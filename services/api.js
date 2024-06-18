@@ -1,19 +1,20 @@
-import {
-  auth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-  fetchSignInMethodsForEmail,
-  sendEmailVerification,
-  db,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc
-} from "./firebase";
+import { auth, db } from './firebase';
+import { 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  sendPasswordResetEmail, 
+  fetchSignInMethodsForEmail, 
+  sendEmailVerification, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut 
+} from 'firebase/auth';
+import { 
+  doc, 
+  getDoc, 
+  setDoc, 
+  updateDoc 
+} from 'firebase/firestore';
 
 
 export const signUp = async (email, password) => {
@@ -25,7 +26,7 @@ export const signUp = async (email, password) => {
     );
     sendEmailVerification(userCredential.user);
     const user = userCredential.user;
-    // await initializeUserData(user.uid);
+    await initializeUserData(user.uid,email);
 
     return user.uid;
   } catch (err) {
@@ -39,7 +40,7 @@ export const signIn = async (email, password) => {
     const user = result.user;
     const u = await getUserById(user.uid);
     if (!u) {
-      await initializeUserData(user.uid);
+      await initializeUserData(user.uid,email);
     }
     return user.uid;
   } catch (err) {
@@ -60,7 +61,9 @@ export const checkEmailAndPass = async (email, password) => {
   }
 };
 export const getCurrentUserId = async () => await auth.currentUser;
-export const logout = async () => await signOut(auth);
+export const logout = async () => {
+  await signOut(auth);
+};
 
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -73,23 +76,9 @@ export const loginWithGoogle = async () => {
   return user.uid;
 };
 
-const initializeUserData = async (uid) => {
-  await setDoc(doc(db, "users", uid), {});
-  await setDoc(doc(db, "users", uid, "targetCatInfo", "pull"), {
-    nextFirstTiredMuscle: "Latissimus dorsi",
-    lastTrainedTime: 0,
-  });
-  await setDoc(doc(db, "users", uid, "targetCatInfo", "push"), {
-    nextFirstTiredMuscle: "Pectoralis major",
-    lastTrainedTime: 0,
-  });
-  await setDoc(doc(db, "users", uid, "targetCatInfo", "core"), {
-    nextFirstTiredMuscle: "Upper abs",
-    lastTrainedTime: 0,
-  });
-  await setDoc(doc(db, "users", uid, "targetCatInfo", "leg"), {
-    nextFirstTiredMuscle: "Quadriceps (squats variants)",
-    lastTrainedTime: 0,
+const initializeUserData = async (uid,email) => {
+  await setDoc(doc(db, "users", uid), {
+  email: email
   });
 };
 export const getUserById = async (id) => {
@@ -99,8 +88,8 @@ export const getUserById = async (id) => {
 };
 export const updateUser = async (id, obj) => {
   const docRef = doc(db, "users", id);
-  await updateDoc(docRef, obj)
-}
+  await updateDoc(docRef, obj);
+};
 
 export const sendPass = (email) => {
   sendPasswordResetEmail(auth, email)

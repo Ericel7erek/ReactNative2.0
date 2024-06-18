@@ -21,18 +21,17 @@ export default function TabLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false
       }}>
       <Stack.Screen
-        name="index"
+        name="two"
         options={{
-          title: 'Tab One',
-          headerRight: () => (
+          title: 'Tab Two',
+          headerLeft: () => (
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name="user"
                     size={25}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -41,8 +40,10 @@ export default function TabLayout() {
               </Pressable>
             </Link>
           ),
+          
         }}
       />
+
     </Stack>
   );
 }
