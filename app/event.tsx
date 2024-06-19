@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, TextInput } from 'react-native';
+import { Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useAuth } from '@/services/AuthContext';
 import { useState } from 'react';
+import { router } from 'expo-router';
 
 
 export default function ModalScreen() {
@@ -36,6 +37,9 @@ export default function ModalScreen() {
       value={LugarDeEvento}
       onChangeText={(e) => setLugarDeEvento(e)}
       />
+      <TouchableOpacity style={styles.evento} onPress={() => router.back()}>
+      <Text>Create Evento ?</Text>
+      </TouchableOpacity>
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
@@ -63,5 +67,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     backgroundColor: "white"
+  },
+    evento:{
+    backgroundColor: "red",
   }
 });
