@@ -53,7 +53,7 @@ function RootLayoutNav() {
       <AuthProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ title:'Profile',presentation: 'modal' }} />
+        <Stack.Screen name="profile" options={{ title:'Profile',presentation: 'modal' }} />
         <Stack.Screen name="event" options={{ title:'Event',presentation: 'modal' }} />
       </Stack>
       </AuthProvider>

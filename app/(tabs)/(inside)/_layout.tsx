@@ -25,9 +25,9 @@ export default function TabLayout() {
       <Stack.Screen
         name="two"
         options={{
-          title: 'Tab Two',
+          title: 'Eventos',
           headerLeft: () => (
-            <Link href="/modal" asChild>
+            <Link href="/profile" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome

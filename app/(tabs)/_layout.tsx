@@ -28,7 +28,7 @@ export default function TabLayout() {
         options={{
           title: 'Tab One',
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/profile" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
