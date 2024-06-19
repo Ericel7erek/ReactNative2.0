@@ -6,6 +6,7 @@ import { Text, View } from '@/components/Themed';
 import { useAuth } from '@/services/AuthContext';
 import { useState } from 'react';
 import { router } from 'expo-router';
+import { createEvent } from '@/services/api';
 
 
 export default function ModalScreen() {
@@ -13,6 +14,8 @@ export default function ModalScreen() {
   const [NombreDeEvento,setNombreDeEvento] =useState('')
   const [FechaDeEvento,setFechaDeEvento] =useState('')
   const [LugarDeEvento,setLugarDeEvento] =useState('')
+  console.log(user.uid);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Event</Text>
@@ -23,24 +26,24 @@ export default function ModalScreen() {
       value={NombreDeEvento}
       onChangeText={(e) => setNombreDeEvento(e)}
       />
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
       <Text>Event Date:</Text>
       <TextInput
       style={styles.input}
       value={FechaDeEvento}
       onChangeText={(e) => setFechaDeEvento(e)}
       />
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
       <Text>Event Location:</Text>
       <TextInput
       style={styles.input}
       value={LugarDeEvento}
       onChangeText={(e) => setLugarDeEvento(e)}
       />
-      <TouchableOpacity style={styles.evento} onPress={() => router.back()}>
+      <TouchableOpacity style={styles.evento} onPress={async() => {
+        await createEvent(user.uid,NombreDeEvento,FechaDeEvento,LugarDeEvento).then(res=>console.log(res))
+        router.back()
+        }}>
       <Text>Create Evento ?</Text>
       </TouchableOpacity>
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );

@@ -10,10 +10,12 @@ import {
   signOut 
 } from 'firebase/auth';
 import { 
+  addDoc,
   doc, 
   getDoc, 
   setDoc, 
-  updateDoc 
+  updateDoc ,
+  collection
 } from 'firebase/firestore';
 
 
@@ -74,6 +76,16 @@ export const loginWithGoogle = async () => {
     await initializeUserData(user.uid);
   }
   return user.uid;
+};
+export const createEvent = async (id,Name, Date, Location) => {
+  console.log (id,Name, Date, Location)
+
+  await addDoc(collection(db, "eventos"), {
+    userId: id,
+  Name: Name,
+  Date: Date,
+  Location: Location
+  });
 };
 
 const initializeUserData = async (uid,email) => {
