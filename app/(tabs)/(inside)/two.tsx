@@ -24,22 +24,23 @@ export default function TabTwoScreen() {
       <Text style={styles.title}>Listado de Eventos</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Text>{user?.email}</Text>
-      <TouchableOpacity style={styles.evento} onPress={() => {
-        <Link href="/modal" asChild>
-          <Pressable>
-            {({ pressed }) => (
-              <FontAwesome
-                name="user"
-                size={25}
-                color={Colors[colorScheme ?? 'light'].text}
-                style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-              />
-            )}
-          </Pressable>
-        </Link>
-      }}>
+
+      <Link href="/event" asChild>
+      <TouchableOpacity style={styles.evento} onPress={()=>(
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="user"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+  )}>
         <Text>Create Event</Text>
       </TouchableOpacity>
+    </Link>
     </View>
   );
 }
