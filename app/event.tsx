@@ -1,18 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TextInput } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useAuth } from '@/services/AuthContext';
+import { useState } from 'react';
 
 
 export default function ModalScreen() {
   const {user,setUser} =useAuth()
+  const [NombreDeEvento,setNombreDeEvento] =useState('')
+  const [FechaDeEvento,setFechaDeEvento] =useState('')
+  const [LugarDeEvento,setLugarDeEvento] =useState('')
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Create Event</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>Wlcome {user.email}</Text>
+      <Text>Event Name:</Text>
+      <TextInput
+      style={styles.input}
+      value={NombreDeEvento}
+      onChangeText={(e) => setNombreDeEvento(e)}
+      />
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <Text>Event Date:</Text>
+      <TextInput
+      style={styles.input}
+      value={FechaDeEvento}
+      onChangeText={(e) => setFechaDeEvento(e)}
+      />
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <Text>Event Location:</Text>
+      <TextInput
+      style={styles.input}
+      value={LugarDeEvento}
+      onChangeText={(e) => setLugarDeEvento(e)}
+      />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
@@ -33,5 +56,12 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
-  },
+  },  
+  input: {
+    height: 40,
+    width: "40%",
+    borderWidth: 1,
+    padding: 10,
+    backgroundColor: "white"
+  }
 });
