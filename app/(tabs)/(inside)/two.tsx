@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
-
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
-import {TouchableOpacity, Pressable} from 'react-native'
+import { TouchableOpacity, Pressable } from 'react-native'
 import { useAuth } from '@/services/AuthContext';
 import { logout } from '@/services/api';
 import { router, Link } from 'expo-router';
@@ -17,27 +16,27 @@ export default function TabTwoScreen() {
   const { user, setUser } = useAuth();
   return (
     <View style={styles.container}>
-      <Text onPress={()=>{
+      <Text onPress={() => {
         logout
         setUser(null)
         router.back()
-        }}>LogOut</Text>
+      }}>LogOut</Text>
       <Text style={styles.title}>Listado de Eventos</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Text>{user?.email}</Text>
-      <TouchableOpacity style={styles.evento} onPress={()=>{
-                    <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="user"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+      <TouchableOpacity style={styles.evento} onPress={() => {
+        <Link href="/modal" asChild>
+          <Pressable>
+            {({ pressed }) => (
+              <FontAwesome
+                name="user"
+                size={25}
+                color={Colors[colorScheme ?? 'light'].text}
+                style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+              />
+            )}
+          </Pressable>
+        </Link>
       }}>
         <Text>Create Event</Text>
       </TouchableOpacity>
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-  evento:{
+  evento: {
     backgroundColor: "red",
   }
 });
