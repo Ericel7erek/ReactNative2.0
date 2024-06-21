@@ -7,17 +7,29 @@ import {
   sendEmailVerification, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
-  signOut 
+  signOut
 } from 'firebase/auth';
-import { 
+import {
+  getDocs,
   addDoc,
   doc, 
   getDoc, 
   setDoc, 
   updateDoc ,
-  collection
+  collection,
+  query
 } from 'firebase/firestore';
 
+const getArrayFromCollection = (collection) => {
+    return collection.docs.map(doc => {
+        return { ...doc.data(), id: doc.id };
+    });
+}
+export const getItems= async ()  => {
+    const colRef = collection(db, "eventos");
+    const result = await getDocs(query(colRef));
+    return getArrayFromCollection(result);
+}
 
 export const signUp = async (email, password) => {
   try {

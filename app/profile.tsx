@@ -10,7 +10,7 @@ import { useAuth } from '@/services/AuthContext';
 
 export default function ModalScreen() {
   const { user, setUser } = useAuth()
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -21,7 +21,7 @@ export default function ModalScreen() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

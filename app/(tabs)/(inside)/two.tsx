@@ -1,19 +1,25 @@
 import { StyleSheet } from 'react-native';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
-import { TouchableOpacity, Pressable } from 'react-native'
+import { TouchableOpacity, Pressable, FlatList} from 'react-native'
 import { useAuth } from '@/services/AuthContext';
-import { logout } from '@/services/api';
+import { getItems, logout } from '@/services/api';
 import { router, Link } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
+import { useEffect, useState } from 'react';
 
 
 
 export default function TabTwoScreen() {
   const colorScheme = useColorScheme();
   const { user, setUser } = useAuth();
+  const [events, setEvents] = useState()
+    useEffect(()=>{
+    getItems().then(res=> setEvents(res)
+    )
+  },[])
   return (
     <View style={styles.container}>
       <Text onPress={() => {
@@ -24,7 +30,7 @@ export default function TabTwoScreen() {
       <Text style={styles.title}>Listado de Eventos</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Text>{user?.email}</Text>
-
+      
       <Link href="/event" asChild>
       <TouchableOpacity style={styles.evento} onPress={()=>(
               <Pressable>
@@ -41,6 +47,26 @@ export default function TabTwoScreen() {
         <Text>Create Event</Text>
       </TouchableOpacity>
     </Link>
+
+      <FlatList
+      numColumns={1}
+
+      data={events}
+      renderItem={({ item }) =>(       
+        <View style={{display:'flex',
+          flexDirection:'row',
+          backgroundColor:'red',
+          margin:10
+        }}>
+        <Text>Name:{item.Name}</Text>
+        <Text>Date:{item.Date}</Text>
+        <Text>Location:{item.Location}</Text>
+        </View>
+
+      )}
+      />
+
+
     </View>
   );
 }

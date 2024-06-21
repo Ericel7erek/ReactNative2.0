@@ -13,12 +13,12 @@ export default function TabOneScreen() {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPass, setRegisterPass] = useState('');
   const [error, setError] = useState('');
-  console.log(user);
+  // console.log(user);
   
   const handleSignUp = async () => {
     try {
       await signUp(registerEmail.toLowerCase(), registerPass)
-      .then(res=> {console.log(res);
+      .then(res=> {
         if(res.includes('weak-password')){
           setError('weak Password at least 6 characters')
         }

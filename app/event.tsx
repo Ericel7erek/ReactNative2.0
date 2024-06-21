@@ -4,9 +4,9 @@ import { Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useAuth } from '@/services/AuthContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { router } from 'expo-router';
-import { createEvent } from '@/services/api';
+import { createEvent, getItems } from '@/services/api';
 
 
 export default function ModalScreen() {
@@ -14,8 +14,8 @@ export default function ModalScreen() {
   const [NombreDeEvento,setNombreDeEvento] =useState('')
   const [FechaDeEvento,setFechaDeEvento] =useState('')
   const [LugarDeEvento,setLugarDeEvento] =useState('')
-  console.log(user.uid);
-  
+  // console.log(user.uid);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Event</Text>
