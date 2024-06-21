@@ -50,18 +50,26 @@ export default function TabTwoScreen() {
 
       <FlatList
       numColumns={1}
-
       data={events}
       renderItem={({ item }) =>(       
-        <View style={{display:'flex',
+        
+        <View>
+          <TouchableOpacity
+          style={{display:'flex',
           flexDirection:'row',
           backgroundColor:'red',
-          margin:10
+          margin:10,
+          padding:10
+          }}
+          onPress={()=>{
+            router.push({pathname: `/details`,params:item})
         }}>
-        <Text>Name:{item.Name}</Text>
-        <Text>Date:{item.Date}</Text>
-        <Text>Location:{item.Location}</Text>
-        </View>
+
+          <Text>Name:{item.Name}</Text>
+          <Text>Date:{item.Date}</Text>
+          <Text>Location:{item.Location}</Text>
+          </TouchableOpacity>
+          </View>
 
       )}
       />
