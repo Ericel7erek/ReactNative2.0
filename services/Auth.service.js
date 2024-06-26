@@ -1,4 +1,5 @@
-import { auth } from "./firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { auth, db } from "./firebase";
 import {
     sendEmailVerification,
     createUserWithEmailAndPassword,
@@ -69,6 +70,14 @@ const initializeUserData = async (uid, email) => {
     await setDoc(doc(db, "users", uid), {
         id: uid,
         email: email,
+    });
+};
+export const EditProfile = async (uid, name, email,date) => {
+    await updateDoc(doc(db, "users", uid), {
+        id: uid,
+        email: email,
+        name: name,
+        date: date,
     });
 };
 
