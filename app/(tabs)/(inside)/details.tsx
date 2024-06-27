@@ -47,9 +47,6 @@ export default function Details() {
         }
     }, [eventId]);
 
-    console.log("pingaaaaaaaaaaa", user);
-    console.log(event);
-
     const handleInvite = async (userId: string) => {
         try {
             await inviteUserToEvent(eventId, userId);
@@ -92,7 +89,7 @@ export default function Details() {
         return "";
     };
 
-    const isEventCreator = event.userId === user.id;
+    const isEventCreator = event.userId === user.uid;
 
     return (
         <View style={styles.container}>

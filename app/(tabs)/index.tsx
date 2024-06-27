@@ -14,7 +14,6 @@ export default function TabOneScreen() {
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPass, setRegisterPass] = useState("");
     const [error, setError] = useState("");
-    // console.log(user);
 
     const handleSignUp = async () => {
         try {
