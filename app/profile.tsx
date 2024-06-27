@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, Image, Button, TextInput, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -32,14 +33,14 @@ export default function ModalScreen() {
     const [image, setImage] = useState(null);
 >>>>>>> 9c978fed7338e4739f79c9c64160775fbeec2c36
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
 <<<<<<< HEAD
     if (!result.canceled) {
