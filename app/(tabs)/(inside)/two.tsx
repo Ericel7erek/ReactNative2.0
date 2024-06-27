@@ -18,6 +18,7 @@ interface Event {
         nanoseconds: number;
     };
     Location: string;
+    userId: string;
 }
 
 export default function TabTwoScreen() {
@@ -44,6 +45,15 @@ export default function TabTwoScreen() {
             return date.toLocaleString();
         }
         return "";
+    };
+
+    const handleEventPress = (item: Event) => {
+        router.push({
+            pathname: `/details`,
+            params: {
+                eventId: item.id,
+            },
+        });
     };
 
     return (
@@ -80,12 +90,7 @@ export default function TabTwoScreen() {
                     <View style={styles.card}>
                         <TouchableOpacity
                             style={styles.cardContent}
-                            onPress={() => {
-                                router.push({
-                                    pathname: `/details`,
-                                    params: item,
-                                });
-                            }}
+                            onPress={() => handleEventPress(item)}
                         >
                             <Text style={styles.cardTitle}>
                                 Name: {item.Name || "Loading"}
