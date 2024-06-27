@@ -1,20 +1,20 @@
 import { auth, db } from './firebase';
-import { 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  sendPasswordResetEmail, 
-  fetchSignInMethodsForEmail, 
-  sendEmailVerification, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut 
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
+  sendEmailVerification,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
 } from 'firebase/auth';
-import { 
+import {
   addDoc,
-  doc, 
-  getDoc, 
-  setDoc, 
-  updateDoc ,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
   collection
 } from 'firebase/firestore';
 
@@ -28,7 +28,7 @@ export const signUp = async (email, password) => {
     );
     sendEmailVerification(userCredential.user);
     const user = userCredential.user;
-    await initializeUserData(user.uid,email);
+    await initializeUserData(user.uid, email);
 
     return user.uid;
   } catch (err) {
@@ -42,7 +42,7 @@ export const signIn = async (email, password) => {
     const user = result.user;
     const u = await getUserById(user.uid);
     if (!u) {
-      await initializeUserData(user.uid,email);
+      await initializeUserData(user.uid, email);
     }
     return user.uid;
   } catch (err) {
@@ -77,20 +77,20 @@ export const loginWithGoogle = async () => {
   }
   return user.uid;
 };
-export const createEvent = async (id,Name, Date, Location) => {
-  console.log (id,Name, Date, Location)
+export const createEvent = async (id, Name, Date, Location) => {
+  console.log(id, Name, Date, Location)
 
   await addDoc(collection(db, "eventos"), {
     userId: id,
-  Name: Name,
-  Date: Date,
-  Location: Location
+    Name: Name,
+    Date: Date,
+    Location: Location
   });
 };
 
-const initializeUserData = async (uid,email) => {
+const initializeUserData = async (uid, email) => {
   await setDoc(doc(db, "users", uid), {
-  email: email
+    email: email
   });
 };
 export const getUserById = async (id) => {

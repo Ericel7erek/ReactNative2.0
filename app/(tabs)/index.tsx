@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { useEffect, useState } from 'react';
-import { signUp, signIn, logout,getUserById } from '../../services/api';
+import { signUp, signIn, logout, getUserById } from '../../services/api';
 import { useAuth } from '../../services/AuthContext';
 import { router } from 'expo-router';
 
@@ -14,22 +14,24 @@ export default function TabOneScreen() {
   const [registerPass, setRegisterPass] = useState('');
   const [error, setError] = useState('');
   console.log(user);
-  
+
   const handleSignUp = async () => {
     try {
       await signUp(registerEmail.toLowerCase(), registerPass)
-      .then(res=> {console.log(res);
-        if(res.includes('weak-password')){
-          setError('weak Password at least 6 characters')
-        }
-      
-        else if(!res.includes('invalid')){
-        setSwitch(!Switch);
-      }else {
-      setError('Error during sign up');
+        .then(res => {
+          console.log(res);
+          if (res.includes('weak-password')) {
+            setError('weak Password at least 6 characters')
+          }
 
-      }}
-      )
+          else if (!res.includes('invalid')) {
+            setSwitch(!Switch);
+          } else {
+            setError('Error during sign up');
+
+          }
+        }
+        )
     } catch (error) {
       console.error(error);
       setError('Error during sign up');
@@ -39,24 +41,25 @@ export default function TabOneScreen() {
   const handleSignIn = async () => {
     try {
       await signIn(email.toLowerCase(), pass)
-      .then(res=>{if(!res.includes('invalid')){
-        getUserById(res).then(userdata=>setUser(userdata))
-        
-      }else{
-        setError('Error during sign in');
-      }
-    })
+        .then(res => {
+          if (!res.includes('invalid')) {
+            getUserById(res).then(userdata => setUser(userdata))
+
+          } else {
+            setError('Error during sign in');
+          }
+        })
     } catch (error) {
       console.error(error);
       setError('Error during sign in');
     }
   };
 
-  useEffect(()=>{
-    if(user!==null) {
+  useEffect(() => {
+    if (user !== null) {
       router.push('(inside)/two')
     }
-  },[user])
+  }, [user])
 
   return (
     <View style={styles.container}>
@@ -81,7 +84,7 @@ export default function TabOneScreen() {
           <TouchableOpacity style={styles.touchable} onPress={() => setSwitch(!Switch)}>
             <Text>Login?</Text>
           </TouchableOpacity>
-          <Text style={{color:'red'}}>{error}</Text>
+          <Text style={{ color: 'red' }}>{error}</Text>
         </>
       ) : (
         <>
@@ -103,7 +106,7 @@ export default function TabOneScreen() {
           <TouchableOpacity style={styles.touchable} onPress={() => setSwitch(!Switch)}>
             <Text>Create Account?</Text>
           </TouchableOpacity>
-          <Text style={{color:'red'}}>{error}</Text>
+          <Text style={{ color: 'red' }}>{error}</Text>
         </>
       )}
     </View>
