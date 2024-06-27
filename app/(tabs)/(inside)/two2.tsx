@@ -1,40 +1,22 @@
 import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import { TouchableOpacity, Pressable, FlatList } from "react-native";
+import { TouchableOpacity, Pressable } from "react-native";
 import { useAuth } from "@/services/AuthContext";
+import { logout } from "@/services/Auth.service";
 import { router, Link } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
-import { useEffect, useState } from "react";
-import { getEvents } from "@/services/Events.service";
-import { logout } from "@/services/Auth.service";
 
 export default function TabTwoScreen() {
     const colorScheme = useColorScheme();
     const { user, setUser } = useAuth();
-    const [events, setEvents] = useState([]);
-
-    useEffect(() => {
-        getEvents().then((res) => setEvents(res));
-    }, []);
-
-    const formatTimestamp = (timestamp) => {
-        if (timestamp && timestamp.seconds && timestamp.nanoseconds) {
-            const date = new Date(
-                timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-            );
-            return date.toLocaleString();
-        }
-        return "";
-    };
-
     return (
         <View style={styles.container}>
             <Text
                 onPress={() => {
-                    logout();
+                    logout;
                     setUser(null);
                     router.back();
                 }}
@@ -71,35 +53,6 @@ export default function TabTwoScreen() {
                     <Text>Create Event</Text>
                 </TouchableOpacity>
             </Link>
-
-            <FlatList
-                numColumns={1}
-                data={events}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View>
-                        <TouchableOpacity
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                backgroundColor: "red",
-                                margin: 10,
-                                padding: 10,
-                            }}
-                            onPress={() => {
-                                router.push({
-                                    pathname: `/details`,
-                                    params: item,
-                                });
-                            }}
-                        >
-                            <Text>Name: {item.Name}</Text>
-                            <Text>Date: {formatTimestamp(item.Date)}</Text>
-                            <Text>Location: {item.Location}</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            />
         </View>
     );
 }
