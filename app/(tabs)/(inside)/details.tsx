@@ -133,7 +133,7 @@ export default function Details() {
                             data={usersDb}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (
-                                <View>
+                                <View style={styles.inviteContainer}>
                                     <Text style={styles.userItem}>
                                         {item.email}
                                     </Text>
@@ -235,5 +235,11 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
+    },
+    inviteContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginVertical: 5,
     },
 });
